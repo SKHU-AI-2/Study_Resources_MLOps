@@ -1,3 +1,4 @@
+from argparse import ArgumentParser
 from sklearn.datasets import load_iris
 import time
 import pandas as pd
@@ -15,6 +16,24 @@ def get_data():
     }
     df = df.rename(columns=rename_rule)
     return df
+
+# 테이블 생성 함수
+def create_table(db_connect):
+    create_table_query = """
+    CREATE TABLE IF NOT EXISTS iris_data (
+        id SERIAL PRIMARY KEY,
+        timestamp timestamp,
+        sepal_length float8,
+        sepal_width float8,
+        petal_length float8,
+        petal_width float8,
+        target int
+    );"""
+    print(create_table_query)
+    # 작성한 query 를 DB 에 전달
+    with db_connect.cursor() as cur:
+        cur.execute(create_table_query)
+        db_connect.commit()
 
 # 데이터 삽입 함수
 def insert_data(db_connect, data):
@@ -44,12 +63,16 @@ def generate_data(db_connect, df):
 
 # DB 연결
 if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument("--db-host", dest="db_host", type=str, default="localhost")
+    args = parser.parse_args()
     db_connect = psycopg2.connect(
         user="myuser",
         password="mypassword",
-        host="localhost",
+        host=args.db_host,
         port=5432,
         database="mydatabase",
     )
+    create_table(db_connect)
     df = get_data()
     generate_data(db_connect, df)

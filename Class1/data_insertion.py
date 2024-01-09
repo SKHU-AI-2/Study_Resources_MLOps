@@ -1,6 +1,6 @@
+from sklearn.datasets import load_iris
 import pandas as pd
 import psycopg2
-from sklearn.datasets import load_iris
 
 # iris 데이터 불러오기
 def get_data():
