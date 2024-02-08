@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Upload for Grayscale Conversion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Upload Image for Grayscale Conversion</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/png, image/jpeg">
+        <input type="hidden" name="option" value="흑백변환">
+        <input type="submit" value="Convert to Grayscale">
+    </form>
+</body>
+</html>

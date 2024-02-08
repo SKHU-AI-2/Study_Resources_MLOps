@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grayscale Conversion Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Grayscale Conversion Result</h1>
+    <div class="image-container">
+        <img src="data:image/png;base64,{{ processed_image }}" alt="Processed Image">
+    </div>
+    <a href="/">Convert another image</a>
+</body>
+</html>
